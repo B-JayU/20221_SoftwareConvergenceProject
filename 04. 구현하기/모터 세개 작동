@@ -8,19 +8,19 @@ int sw2=0;
 int sw3=0;
 
 void setup() {
- pinMode(3,INPUT);
+ pinMode(3,INPUT); //3번 핀을 스위치 입력 단자로 설정
  pinMode(5,INPUT);
  pinMode(7,INPUT);
- m1.attach(2);
- m1.write(0);
+ m1.attach(2); //2번 핀을 서보모터 구동 단자로 설정
+ m1.write(0); //서보모터 초기값 0도
  m2.attach(4);
- m2.write(0);
+ m2.write(0); 
  m3.attach(6);
  m3.write(0);
 }
 
 void loop() {
-  sw1=digitalRead(3);
+  sw1=digitalRead(3);  //스위치 입력단자인 3번에서 입력되는 신호를 read
   if(sw1==HIGH)
   {
     m1.write(180);
