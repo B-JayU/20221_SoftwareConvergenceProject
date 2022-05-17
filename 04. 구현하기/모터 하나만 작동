@@ -1,0 +1,22 @@
+#include <Servo.h>
+//모터 하나만
+Servo m1;
+int sw1=0;
+
+void setup() {
+ pinMode(3,INPUT);
+ m1.attach(2);
+ m1.write(0);
+}
+
+void loop() {
+  sw1=digitalRead(3);
+  if(sw1==HIGH)
+  {
+    m1.write(180);
+  }
+  if(sw1==LOW)
+  {
+    m1.write(0);
+  }
+}
