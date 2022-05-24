@@ -1,0 +1,34 @@
+#include <Servo.h>
+//모터 두개
+Servo m1;
+Servo m2;
+int sw1=0;
+int sw2=0;
+
+void setup() {
+ pinMode(3,INPUT);
+ pinMode(5,INPUT);
+ m1.attach(2);
+ m1.write(0);
+ m2.attach(4);
+ m2.write(0);
+}
+
+void loop() {
+  sw1=digitalRead(3);
+  if(sw1==HIGH)
+  {
+    m1.write(180);
+    Serial.println("1눌림");
+    delay(5000);
+    m1.write(0);
+  }
+  sw2=digitalRead(5);
+  if(sw2==HIGH)
+  {
+    m2.write(180);
+    Serial.println("2눌림");
+    delay(5000);
+    m2.write(0);
+  }
+}
