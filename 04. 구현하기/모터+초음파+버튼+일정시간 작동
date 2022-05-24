@@ -1,0 +1,98 @@
+#include <Servo.h>
+//모터 두개_초음파+버튼
+
+#define trig 8
+#define echo 9
+
+
+Servo m1;
+Servo m2;
+int sw1=0;
+int sw2=0;
+
+unsigned long timeCurr, time; // 현재시간
+long duration, distance;
+
+void setup() {
+ pinMode(3,INPUT);
+ pinMode(5,INPUT);
+ m1.attach(2);
+ m1.write(0);
+ m2.attach(4);
+ m2.write(0);
+
+ Serial.begin(9600);
+ pinMode(trig, OUTPUT);
+ pinMode(echo, INPUT);
+}
+
+void loop() {
+  sw1=digitalRead(3);
+  if(sw1==HIGH)
+  {
+    Serial.println("1버튼 눌림");
+    time = millis();
+    while(time + 10000 > millis()){
+        
+        digitalWrite(trig, LOW);
+        digitalWrite(echo, LOW);
+        delayMicroseconds(2);
+        digitalWrite(trig, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(trig, LOW);
+
+        duration = pulseIn(echo, HIGH);
+        distance = ((float)(340*duration)/10000)/2;
+
+        Serial.print("거리: ");
+        Serial.print(distance);
+        Serial.println("cm");
+        
+          if (distance < 10){
+            Serial.println("10cm 이내");
+            m1.write(180);
+            delay(3000);
+            m1.write(0);
+            break;
+          }
+         else{
+            timeCurr=millis();
+            while(timeCurr+500>millis()){
+              
+            }
+         }
+    }
+  }
+  sw2=digitalRead(5);
+  if(sw2==HIGH)
+  {
+    Serial.println("2버튼 눌림");
+    time = millis();
+    while(time + 10000 > millis()){
+      digitalWrite(trig, LOW);
+      digitalWrite(echo, LOW);
+      delayMicroseconds(2);
+      digitalWrite(trig, HIGH);
+      delayMicroseconds(10);
+      digitalWrite(trig, LOW);
+
+      duration = pulseIn(echo, HIGH);
+      distance = ((float)(340*duration)/10000)/2;
+
+      Serial.print("거리: ");
+      Serial.print(distance);
+      Serial.println("cm");
+    
+      if (distance < 10){
+        Serial.println("10cm 이내");
+        m2.write(180);
+        delay(3000);
+        m2.write(0);
+       }
+        else{
+            timeCurr=millis();
+            while(timeCurr+500>millis()){
+              
+            }
+  }
+  }}}
