@@ -87,7 +87,7 @@ void loop() {
     while(1){
       if(sw2==HIGH){
           Serial.println("2버튼 다시 누름");
-          digitalWrite(13,LOW);
+          digitalWrite(13,LOW);  //led 번호 새거 해야함
           break;
         }
       digitalWrite(trig, LOW);
@@ -109,7 +109,7 @@ void loop() {
         m2.write(180);
         delay(3000);
         m2.write(0);
-        digitalWrite(13, LOW);
+        digitalWrite(13, LOW);   //led 번호 새거 해야함
         break;
        }
         else{
