@@ -81,7 +81,7 @@ void loop() {
   if(sw2==HIGH || num==2)
   {
     Serial.println("2버튼 눌림");
-    digitalWrite(13, HIGH);//led 켜지기
+    digitalWrite(13, HIGH);//led 번호 새거 해야함
     num=0;
     
     while(1){
