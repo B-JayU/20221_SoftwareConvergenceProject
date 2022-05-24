@@ -58,21 +58,6 @@ void loop() {
   sw2=digitalRead(5);
   if(sw2==HIGH)
   {
-    long duration, distance;
-
-    digitalWrite(trig, LOW);
-    digitalWrite(echo, LOW);
-    delayMicroseconds(2);
-    digitalWrite(trig, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trig, LOW);
-
-    duration = pulseIn(echo, HIGH);
-    distance = ((float)(340*duration)/10000)/2;
-
-    Serial.print("거리: ");
-    Serial.print(distance);
-    Serial.println("cm");
     
     if (distance < 10){
       Serial.println("10cm 이내");
