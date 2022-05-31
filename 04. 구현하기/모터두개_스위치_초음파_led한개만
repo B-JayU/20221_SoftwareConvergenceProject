@@ -22,6 +22,7 @@ void setup() {
  m2.attach(4);
  m2.write(0);
  pinMode(13,OUTPUT);//led 출력
+ pinMode(10,OUTPUT);
 
  Serial.begin(9600);
  pinMode(trig, OUTPUT);
@@ -29,8 +30,7 @@ void setup() {
 }
 
 void loop() {
-  sw1=digitalRead(3);
-  if(sw1==HIGH || num==1)
+  if(digitalRead(3)==HIGH || num==1)
   {
     Serial.println("1버튼 눌림");
     digitalWrite(13, HIGH);//led 켜지기
@@ -80,15 +80,14 @@ void loop() {
          
     }
   }
-  sw2=digitalRead(5);
-  if(sw2==HIGH || num==2)
+  if(digitalRead(5)==HIGH || num==2)
   {
     Serial.println("2버튼 눌림");
     digitalWrite(10, HIGH);//led 번호 새거 해야함
     num=0;
     time=millis();
     while(1){
-      if(digitalRead(5)==HIGH&&time+500<millis()){
+      if(digitalRead(5)==HIGH && time+500<millis()){
         time2=millis();
           Serial.println("2버튼 다시 누름");
           digitalWrite(10, LOW);  //led 번호 새거 해야함
@@ -126,7 +125,7 @@ void loop() {
             
           Serial.println("2버튼->1버튼");
           num=1;
-           
+          digitalWrite(10,LOW);
           break;
          }
   }}}
