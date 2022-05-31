@@ -10,7 +10,7 @@ Servo m2;
 int sw1=0;
 int sw2=0;
 
-unsigned long timeCurr, time; // 현재시간
+unsigned long timeCurr, time, time1, time2; // 현재시간
 long duration, distance;
 int num=0; //버튼 저장
 
@@ -35,13 +35,22 @@ void loop() {
     Serial.println("1버튼 눌림");
     digitalWrite(13, HIGH);//led 켜지기
     num=0;
+    time=millis();
     while(1){
-        if(sw1==HIGH){
+        if(digitalRead(3)==HIGH && time+500<millis()){
+          time1=millis();
           Serial.println("1버튼 다시 누름");
           digitalWrite(13,LOW);
+          while(time1+500>millis()){}
           break;
         }
-        
+        if(digitalRead(5)==HIGH){
+          Serial.println("1버튼->2버튼");
+          num=2;
+          digitalWrite(13,LOW);
+          break;
+         }
+         
         digitalWrite(trig, LOW);
         digitalWrite(echo, LOW);
         delayMicroseconds(2);
@@ -64,30 +73,26 @@ void loop() {
             digitalWrite(13, LOW);
             break;
           }
-         else{
+          else{
             timeCurr=millis();
-            while(timeCurr+500>millis()){
-            }
+            while(timeCurr+500>millis()){}
          }
-         if(sw2==HIGH){
-          Serial.println("1버튼->2버튼");
-          num=2;
-          digitalWrite(13,LOW);
-          break;
-         }
+         
     }
   }
   sw2=digitalRead(5);
   if(sw2==HIGH || num==2)
   {
     Serial.println("2버튼 눌림");
-    digitalWrite(13, HIGH);//led 번호 새거 해야함
+    digitalWrite(10, HIGH);//led 번호 새거 해야함
     num=0;
-    
+    time=millis();
     while(1){
-      if(sw2==HIGH){
+      if(digitalRead(5)==HIGH&&time+500<millis()){
+        time2=millis();
           Serial.println("2버튼 다시 누름");
-          digitalWrite(13,LOW);  //led 번호 새거 해야함
+          digitalWrite(10, LOW);  //led 번호 새거 해야함
+          while(time2+500>millis()){}
           break;
         }
       digitalWrite(trig, LOW);
@@ -109,7 +114,7 @@ void loop() {
         m2.write(180);
         delay(3000);
         m2.write(0);
-        digitalWrite(13, LOW);   //led 번호 새거 해야함
+        digitalWrite(10, LOW);   //led 번호 새거 해야함
         break;
        }
         else{
@@ -117,9 +122,11 @@ void loop() {
             while(timeCurr+500>millis()){
             }
             }
-          if(sw1==HIGH){
+          if(digitalRead(3)==HIGH){
+            
           Serial.println("2버튼->1버튼");
           num=1;
+           
           break;
          }
   }}}
